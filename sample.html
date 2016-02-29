@@ -5,11 +5,13 @@
   </head>
   <body>
     <script type="text/javascript">
-      if (typeof cc.params.utm_campaign === 'string') {
-        alert('utm_campaign: ' + cc.params.utm_campaign);
-      } else {
-        alert('No utm_campaign present nor stored');
-      }
+      $.ready(function() {
+        if (typeof cc.params.utm_campaign === 'string') {
+          alert('utm_campaign: ' + cc.params.utm_campaign);
+        } else {
+          alert('No utm_campaign present nor stored');
+        }
+      });
     </script>
   </body>
 </html>
