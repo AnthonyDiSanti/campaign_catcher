@@ -7,22 +7,35 @@ function CampaignCatcher() {
 
 
 
+  function _sanitizeParams() {
+    for (var param in thisCC.params) {
+      thisCC.params[param] = thisCC.sanitize(thisCC.params[param]);
+    }
+  }
+
+
+
+  this.sanitize = function sanitize(value) {
+    return value.toString().toLowerCase();
+  };
+
+
+
   function _read() {
-    var cookies = Cookies.get();
-    
-    for (var cookie in cookies) {
-      if (cookie.substr(0, 3) === 'cc_') {
-        thisCC.params[cookie.substr(3)] = cookies[cookie];
-      }
+    var cookie = Cookies.get('campaign_catcher');
+    if (cookie !== undefined) {
+      thisCC.params = JSON.parse(cookie);
+      _sanitizeParams();
+    } else {
+      thisCC.params = {};
     }
   }
 
 
 
   function _write() {
-    for (var param in thisCC.params) {
-      Cookies.set('cc_' + param, thisCC.params[param]);
-    }
+    _sanitizeParams();
+    Cookies.set('campaign_catcher', JSON.stringify(thisCC.params));
   }
 
 
@@ -33,7 +46,7 @@ function CampaignCatcher() {
         return;
       }
 
-      param = param.toLowerCase();
+      param = thisCC.sanitize(param);
 
       var separator = param.indexOf('=');
       switch (separator) {
@@ -58,7 +71,7 @@ function CampaignCatcher() {
 
 
   this.set = function set(param, value) {
-    thisCC.params[param.toLowerCase()] = value.toLowerCase();
+    thisCC.params[thisCC.sanitize(param)] = thisCC.sanitize(value);
     _write();
   };
 
@@ -66,15 +79,14 @@ function CampaignCatcher() {
 
   this.remove = function remove(param) {
     delete thisCC.params[param];
-    Cookies.remove('cc_' + param);
+    _write();
   };
 
 
 
   this.reset = function reset() {
-    for (var param in thisCC.params) {
-      thisCC.remove(param);
-    }
+    thisCC.params = {};
+    _write();
   };
 
 
