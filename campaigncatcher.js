@@ -11,8 +11,8 @@ function CampaignCatcher() {
     var cookies = Cookies.get();
     
     for (var cookie in cookies) {
-      if (cookie.substr(0, 3) = 'cc_') {
-        thisCC.params[cookie,substr(3)] = cookies[cookie];
+      if (cookie.substr(0, 3) === 'cc_') {
+        thisCC.params[cookie.substr(3)] = cookies[cookie];
       }
     }
   }
@@ -29,6 +29,10 @@ function CampaignCatcher() {
 
   function _processParameters() {
     $.each(document.location.search.substr(1).split('&'), function(i, param) {
+      if (param.length === 0) {
+        return;
+      }
+
       param = param.toLowerCase();
 
       var separator = param.indexOf('=');
