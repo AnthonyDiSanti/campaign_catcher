@@ -1,0 +1,3 @@
+[submodule "lib/js-cookie"]
+	path = lib/js-cookie
+	url = https://github.com/js-cookie/js-cookie.git
