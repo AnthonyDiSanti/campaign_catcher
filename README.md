@@ -1,10 +1,8 @@
 # Campaign Catcher
-==================
 
 Campaign Catcher captures all URL parameters, storing them in cookies.  The most recent values of all historical URL parameters are avialable via the `cc.params` object.
 
 ## Sample Code
---------------
 
     <!-- Supporting Libraries -->
     <script type="text/javasctipt" src="http://code.jquery.com/jquery-2.2.1.min.js"></script>

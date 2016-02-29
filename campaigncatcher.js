@@ -4,6 +4,7 @@ function CampaignCatcher() {
   var thisCC = this;
 
   this.params = {};
+  this.formMaps = {};
 
 
 
@@ -97,6 +98,65 @@ function CampaignCatcher() {
 
 
 
+  this.addForm = function addForm(selector, formMap) {
+    if ((typeof selector !== 'string') ||  (typeof formMap !== 'object')) {
+      return false;
+    }
+
+    for (var input in formMap) {
+      if ((typeof formMap[input] !== 'string')
+          && (typeof formMap[input] !== 'function')) {
+        return false;
+      }
+    }
+    
+    thisCC.formMaps[selector] = formMap;
+    $(_processForms);
+
+    return true;
+  };
+
+
+
+  function _processForms() {
+    for (var selector in thisCC.formMaps) {
+      $(selector).each(function(i, form) {
+        _setInputValues($(form), thisCC.formMaps[selector]);
+      });
+    }
+  }
+
+
+
+  function _setInputValues(form, formMap) {
+    if (!form.is('form')) {
+      return;
+    }
+
+    for (var input in formMap) {
+      var inputElement = form.find('input[name=' + input + ']');
+      if (inputElement.length === 0) {
+        inputElement = $('<input name="' + input + '" type="hidden">');
+        form.append(inputElement);
+      }
+
+      switch (typeof formMap[input]) {
+        case 'string':
+          var value = thisCC.params[formMap[input]];
+          if (value !== undefined) {
+            inputElement.val(value);
+          }
+          break;
+
+        case 'function':
+          input.val(formMap[input].call(this, thisCC.params));
+          break;
+      }
+    }
+  }
+
+
+
   // Constructor Logic
   _read();
   _processParameters();
@@ -105,7 +165,7 @@ function CampaignCatcher() {
 
 
 
-// Export campaign catcher into the global variable, cc
+// Export campaign catcher into the global variable cc
 window.cc = new CampaignCatcher;
 
 })(jQuery);
