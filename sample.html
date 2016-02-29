@@ -1,11 +1,11 @@
 <html>
   <head>
-    <script type="text/javasctipt" src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
-    <script type="text/javasctipt" src="path/to/campaigncatcher.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="campaigncatcher.js"></script>
   </head>
   <body>
     <script type="text/javascript">
-      $.ready(function() {
+      $(function() {
         if (typeof cc.params.utm_campaign === 'string') {
           alert('utm_campaign: ' + cc.params.utm_campaign);
         } else {
