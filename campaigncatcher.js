@@ -73,6 +73,8 @@ function CampaignCatcher() {
   this.set = function set(param, value) {
     thisCC.params[thisCC.sanitize(param)] = thisCC.sanitize(value);
     _write();
+
+    return thisCC.params;
   };
 
 
@@ -80,6 +82,8 @@ function CampaignCatcher() {
   this.remove = function remove(param) {
     delete thisCC.params[param];
     _write();
+
+    return thisCC.params;
   };
 
 
@@ -87,6 +91,8 @@ function CampaignCatcher() {
   this.reset = function reset() {
     thisCC.params = {};
     _write();
+
+    return thisCC.params;
   };
 
 
