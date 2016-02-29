@@ -10,7 +10,13 @@ Campaign Catcher captures all URL parameters, storing them in cookies.  The most
     <script type="text/javasctipt" src="path/to/campaigncatcher.js"></script>
 
     <script type="text/javascript">
-      alert(cc.params.utm_campaign);
+      if (typeof cc.params.utm_campaign === 'string') {
+        alert('utm_campaign: ' + cc.params.utm_campaign);
+      } else {
+        alert('No utm_campaign present nor stored');
+      }
     </script>
 
-Visit your test page with a utm_campaign parameter (path/to/testpage.html?utm_campaign=testcampaign) and the campaign will be shown in an alert box.  Then visit the page without the utm_campaign parameter and the campaign captured previously will be displayed in the alert box.
+1. Open sample.html
+2. Add a utm_campaign parameter (sample.html?utm_campaign=testcampaign) and the campaign will be shown in an alert box
+3. Remove the utm_campaign parameter and the campaign captured previously will be displayed in the alert box
