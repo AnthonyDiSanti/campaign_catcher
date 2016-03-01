@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <!-- Supporting Libraries -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="lib/js-cookie/src/js.cookie.js"></script>
+
+    <!-- JSON Polyfill -->
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+
+    <!-- Campaign Catcher -->
+    <script type="text/javascript" src="campaigncatcher.js"></script>
+  </head>
+  <body>
+    <form id="test-form">
+      <label for="campaign">utm_campaign</label>
+      <input name="campaign" id="campaign" type="text" /><br />
+      <label for="calc">2 + 3 = </label>
+      <input name="calc" id="calc" type="text" />
+    </form>
+    <script type="text/javascript">
+      $(function() {
+        cc.addForm('#test-form', {
+          campaign: 'utm_campaign',
+          calc: function(params) {
+            console.log(params)
+            return 2+3;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
