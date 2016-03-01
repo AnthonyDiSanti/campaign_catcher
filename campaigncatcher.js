@@ -36,7 +36,10 @@ function CampaignCatcher() {
 
   function _write() {
     _sanitizeParams();
-    Cookies.set('campaign_catcher', JSON.stringify(thisCC.params));
+    Cookies.set('campaign_catcher', JSON.stringify(thisCC.params), {
+      expires: 365 * 10,
+      path: '/'
+    });
   }
 
 
