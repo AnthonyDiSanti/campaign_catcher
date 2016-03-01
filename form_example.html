@@ -21,7 +21,10 @@
       $(function() {
         cc.addForm('#test-form', {
           campaign: 'utm_campaign',
-          calc: function(params) { return 2+3; }
+          calc: function(params) {
+            console.log(params)
+            return 2+3;
+          }
         });
       });
     </script>
