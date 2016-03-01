@@ -13,12 +13,15 @@
   <body>
     <form id="test-form">
       <label for="campaign">utm_campaign</label>
-      <input name="campaign" id="campaign" type="text" />
+      <input name="campaign" id="campaign" type="text" /><br />
+      <label for="calc">2 + 3 = </label>
+      <input name="calc" id="calc" type="text" />
     </form>
     <script type="text/javascript">
       $(function() {
         cc.addForm('#test-form', {
-          campaign: 'utm_campaign'
+          campaign: 'utm_campaign',
+          calc: function(params) { return 2+3; }
         });
       });
     </script>

@@ -149,7 +149,7 @@ function CampaignCatcher() {
           break;
 
         case 'function':
-          input.val(formMap[input].call(this, thisCC.params));
+          inputElement.val(formMap[input].call(this, thisCC.params));
           break;
       }
     }
