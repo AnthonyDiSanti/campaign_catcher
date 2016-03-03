@@ -99,32 +99,31 @@ function CampaignCatcher() {
 
 
   this.addForm = function addForm(selector, formMap) {
-    if ((typeof selector !== 'string') ||  (typeof formMap !== 'object')) {
-      return false;
-    }
+    var formProcessing = new $.Deferred;
 
-    for (var input in formMap) {
-      if ((typeof formMap[input] !== 'string')
-          && (typeof formMap[input] !== 'function')) {
-        return false;
+    if ((typeof selector !== 'string') ||  (typeof formMap !== 'object')) {
+      formProcessing.reject();
+    } else {
+      for (var input in formMap) {
+        if ((typeof formMap[input] !== 'string')
+            && (typeof formMap[input] !== 'function')) {
+          formProcessing.reject();
+        }
       }
     }
     
-    thisCC.formMaps[selector] = formMap;
-    $(_processForms);
-
-    return true;
-  };
-
-
-
-  function _processForms() {
-    for (var selector in thisCC.formMaps) {
-      $(selector).each(function(i, form) {
-        _setInputValues($(form), thisCC.formMaps[selector]);
+    if (formProcessing.state() === 'pending') {
+      thisCC.formMaps[selector] = formMap;
+      $(function() {
+        $(selector).each(function(i, form) {
+          _setInputValues($(form), formMap);
+        });
+        formProcessing.resolve();
       });
     }
-  }
+
+    return formProcessing;
+  };
 
 
 
