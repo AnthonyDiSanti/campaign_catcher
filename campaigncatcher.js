@@ -36,7 +36,10 @@ function CampaignCatcher() {
 
   function _write() {
     _sanitizeParams();
-    Cookies.set('campaign_catcher', JSON.stringify(thisCC.params));
+    Cookies.set('campaign_catcher', JSON.stringify(thisCC.params), {
+      expires: 365 * 10,
+      path: '/'
+    });
   }
 
 
@@ -133,24 +136,29 @@ function CampaignCatcher() {
     }
 
     for (var input in formMap) {
+      var value = undefined;
+
+      switch (typeof formMap[input]) {
+        case 'string':
+          value = thisCC.params[formMap[input]];
+          break;
+
+        case 'function':
+          value = formMap[input].call(this, thisCC.params);
+          break;
+      }
+
+      if (value === undefined) {
+        continue;
+      }
+
       var inputElement = form.find('input[name=' + input + ']');
       if (inputElement.length === 0) {
         inputElement = $('<input name="' + input + '" type="hidden">');
         form.append(inputElement);
       }
 
-      switch (typeof formMap[input]) {
-        case 'string':
-          var value = thisCC.params[formMap[input]];
-          if (value !== undefined) {
-            inputElement.val(value);
-          }
-          break;
-
-        case 'function':
-          inputElement.val(formMap[input].call(this, thisCC.params));
-          break;
-      }
+      inputElement.val(value);
     }
   }
 
