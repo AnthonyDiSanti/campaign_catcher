@@ -152,7 +152,7 @@ function CampaignCatcher() {
         continue;
       }
 
-      var inputElement = form.find('input[name=' + input + ']');
+      var inputElement = form.find('*[name=' + input + ']');
       if (inputElement.length === 0) {
         inputElement = $('<input name="' + input + '" type="hidden">');
         form.append(inputElement);
