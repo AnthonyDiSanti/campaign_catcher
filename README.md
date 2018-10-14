@@ -14,11 +14,11 @@ Campaign Catcher can be used simply to capture URL parameters for use in your ow
 
 ```html
 <!-- Supporting Libraries -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
-<script type="text/javascript" src="path/to/js.cookie.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
 <!-- JSON Polyfill -->
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
 
 <!-- Campaign Catcher -->
 <script type="text/javascript" src="path/to/campaigncatcher.js"></script>
